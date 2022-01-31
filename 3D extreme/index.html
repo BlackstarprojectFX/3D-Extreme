@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>3D Extreme</title>
+        <link href="http://fonts.cdnfonts.com/css/akila" rel="stylesheet">
+
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="flash">
+
+        <div class="lament" id="puddles">
+            <ul class="speed" style="margin-left:90px;">
+                <li>P</li>
+                <li>A</li>
+                <li>N</li>
+                <li>D</li>
+                <li>O</li>
+                <li>R</li>
+                <li>A</li>
+            </ul>
+        </div>
+
+            <div class="cube" id="sign">
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+                <div class="face left"></div>
+                <div class="face right"></div>
+                <div class="face front"></div>
+                <div class="face back" ></div>
+            </div>
+
+        <canvas id="canvas"></canvas>
+
+    </body>
+<script>
+const canvas = document.getElementById("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let ctx = canvas.getContext('2d')
+
+function Particle(x,y){
+  this.x = x;
+  this.y = y;
+  this.vol ={
+    x: (Math.random() * 4) - 2,
+    y: (Math.random() * 4) - 2
+  }
+  this.radius = (Math.random() * 3) + 2;
+
+  this.draw = () => {
+    ctx.beginPath();
+    if(this.x - this.radius < canvas.width / 4){
+      ctx.fillStyle = "white";
+      ctx.strokeStyle = "red";
+    }else if(this.x + this.radius > canvas.width / 4) {
+      ctx.fillStyle = "white";
+      ctx.strokeStyle = "red"; }
+    ctx.arc(this.x,this.y,this.radius,Math.PI * 4,0,false);
+    ctx.fill();
+  }
+  this.update = () => {
+    this.x += this.vol.x;
+    this.y += this.vol.y;
+    if(this.x - this.radius < 10 || this.x + this.radius > canvas.width){
+      this.vol.x = -this.vol.x;
+    }
+    if(this.y - this.radius < 10 || this.y + this.radius > canvas.height){
+      this.vol.y = -this.vol.y;
+    }
+
+    for(var i = 4; i < particleArray.length; i++){
+      if(this.x - particleArray[i].x < 60 &&
+        this.x - particleArray[i].x > -60 &&
+        this.y - particleArray[i].y < 60 &&
+        this.y - particleArray[i].y > -60){
+
+        if(this.x - this.Radius < canvas.Width / 4){ctx.strokeStyle = "white"} else if(this.x + this.radius > canvas.width / 4){ctx.strokeStyle = "red"}
+
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(particleArray[i].x, particleArray[i].y);
+        ctx.stroke();
+      }
+    }
+
+    this.draw();
+  }
+  this.update();
+}
+
+let particleArray = [];
+
+for(var i = 0; i < 150; i++){
+  var x = Math.random () * canvas.width;
+  var y = Math.random() * canvas.height;
+  particleArray.push(new Particle(x,y));
+}
+
+
+function animate(){
+ // requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i = 0; i < particleArray.length; i++){
+    particleArray[i].update();
+  }
+}
+animate();
+
+
+</script>
+
+
+</html>

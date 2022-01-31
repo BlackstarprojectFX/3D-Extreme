@@ -1,0 +1,249 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Akila', sans-serif;
+    letter-spacing: 0.7em;
+    background-image: linear-gradient(90deg, black 45%, black 48%)
+}
+.lament {
+    position: absolute;
+    top: 50%;/*Changing these to 30 (top/left) will move the the word Pandora to left*/
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+ul {
+    margin-top: -90px;
+    padding: 0;
+    display: flex;
+    bottom: -120px;
+    right: 0;
+    position: fixed;
+    z-index: 2000;
+
+}
+ul li {
+    list-style: none;
+    color: white;
+    font-size: 5em;
+    font-weight: bold;
+    letter-spacing: 15px;
+    filter: blur(1px);
+
+}
+
+ul li:nth-child(1) {
+    animation-delay: 0s;
+}
+ul li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+ul li:nth-child(3) {
+    animation-delay: 0.8s;
+}
+ul li:nth-child(4) {
+    animation-delay: 1.2s;
+}
+ul li:nth-child(5) {
+    animation-delay: 1.6s;
+}
+ul li:nth-child(6) {
+    animation-delay: 2.0s;
+}
+ul li:nth-child(7) {
+    animation-delay: 2.2s;
+}
+
+:root {
+  --rotateX: 0deg;
+  --rotateY: 0deg;
+  --rotateZ: 0deg;
+  --size: 180px;/*This changes "Cube Size"*/
+  --gap: 1px;
+}
+
+.cube {
+  margin-left:95px;
+  margin-top: 25px;
+  position: sticky;
+  width: var(--size);
+  height: var(--size);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rotateX)) rotateY(var(--rotateY)) rotateZ(var(--rotateZ));
+  transition: transform 0.3s;
+  animation: rotate 15s ease-in-out infinite forwards alternate;
+}
+.cube.off {
+  animation: unset;
+}
+@keyframes rotate {
+  0% {
+    transform: rotateX(var(--rotateX)) rotateY(var(--rotateY)) rotateZ(var(--rotateZ));
+  }
+  100% {
+    transform: rotateX(820deg) rotateY(-360deg) rotateZ(-360deg);
+  }
+}
+.cube .face {
+  position: absolute;
+  height: var(--size);
+  width: var(--size);
+  border: 2px solid #0005;
+  background: url("https://c4.wallpaperflare.com/wallpaper/528/381/269/assassins-creed-assassins-creed-origins-engraving-hieroglyphs-wallpaper-preview.jpg");
+  background-size: cover;
+  box-shadow: 0 0 5px 2.5px #fff, 0 0 var(--gap) calc(var(--gap) / 4) red;
+  box-shadow: 0 0 30px 5px #fff2, 0 0 8px 1px powderblue;
+}
+.cube .face.top {
+  transform: translateY(calc(-50% - var(--gap))) rotateX(90deg);
+}
+.cube .face.bottom {
+  transform: translateY(calc(var(--gap) + 50%)) rotateX(-90deg);
+}
+.cube .face.right {
+  transform: translateX(calc(var(--gap) + 50%)) rotateY(90deg);
+}
+.cube .face.left {
+  transform: translateX(calc(-50% - var(--gap))) rotateY(-90deg);
+}
+.cube .face.back {
+  transform: translateZ(calc(var(--size) / -2 - var(--gap)));
+}
+.cube .face.front {
+  transform: translateZ(calc(var(--size) / 2 + var(--gap))) rotateZ(180deg);
+}
+
+/*Left Side Splash*/
+#puddles {
+  width: -200px;
+  height: -250px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top:90px;
+  position: relative;
+}
+
+#puddles:before {
+  position: absolute;
+  left: 92.5px;
+  top: 0;
+  content: '';
+  width: 25px;
+  height: 25px;
+  background-color:red;
+  border-radius: 50%;
+  opacity: 0;
+  animation: drip 4s ease infinite;
+}
+
+#puddles:after {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: '';
+  border: solid 4px crimson;
+  border-radius: 250%;
+  opacity: 0;
+  animation: splash 4s ease infinite;
+}
+
+@keyframes splash {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    bottom: 50px;
+    left: 100px;
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  }
+  25.001% {
+    opacity: 1;
+  }
+  33% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 200px;
+    height: 100px;
+  }
+  33.001% {
+    bottom: 50px;
+    left: 100px;
+    opacity: 1;
+    width: 0px;
+    height: 0px;
+  }
+  43% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 200px;
+    height: 100px;
+  }
+  43.001% {
+    opacity: 0;
+  }
+}
+
+
+
+/*This allows light to emmit from the center of the box to make it look like energy is escaping*/
+#sign {
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  background-image: radial-gradient(
+    ellipse 50% 35% at 50% 50%,
+    #6b1839,
+    transparent
+  );
+
+
+@keyframes blink {
+  0%,
+  22%,
+  36%,
+  75% {
+    color: #ffe6ff;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+      -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+      0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+  }
+  28%,
+  33% {
+    color: #fff;
+    text-shadow: none;
+  }
+  82%,
+  97% {
+    color: #fff;
+    text-shadow: none;
+  }
+}
+
+.flash {
+  animation: shine 2s forwards, blink 3s 2s infinite;
+}
+
+.speed {
+  animation: shine 2s forwards, blink 10s 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    color: #6b1839;
+    text-shadow: none;
+  }
+  100% {
+    color: #ffe6ff;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+      -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+      0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+  }
+}
+
+
